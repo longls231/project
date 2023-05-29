@@ -1,0 +1,9 @@
+{
+    "creditCardNumber": "0123456789012345",
+    "creditCardExpireDate": 2412,
+    "creditCardCreationDate": 2001,
+    "ownerName": "Nghiem Viet Thang",
+    "cvv": "123",
+    "bank": "techcombank",
+    "amount": 100000
+}
