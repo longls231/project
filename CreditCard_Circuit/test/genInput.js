@@ -66,6 +66,8 @@ const main = async () => {
     mimc = await buildMimc7();
     F = await mimc.F;
 
+    console.log(mimc.cts);
+
     // load userInfo Data
     const folderPath = 'test/userInfo';
     const jsonFilesData = readJSONFilesInFolder(folderPath);
@@ -86,7 +88,6 @@ const main = async () => {
         encodeUserInfo = {
             creditCardNumber: parseInt(jsonFilesData[i].creditCardNumber, 10),
             creditCardExpireDate: jsonFilesData[i].creditCardExpireDate,
-            creditCardCreationDate: jsonFilesData[i].creditCardCreationDate,
             cvv: parseInt(jsonFilesData[i].cvv, 10),
             bank: convertStringAsciiToNumber(jsonFilesData[i].bank),
             ownerName: convertStringAsciiToNumber(jsonFilesData[i].ownerName),
@@ -98,7 +99,7 @@ const main = async () => {
 
     for (i = 0; i < jsonFilesData.length; i++) {
         //create user leaf
-        userInfoHashed.push(hash([userInfosCircuit[i].creditCardNumber, userInfosCircuit[i].creditCardExpireDate, userInfosCircuit[i].creditCardCreationDate, userInfosCircuit[i].cvv, userInfosCircuit[i].bank, userInfosCircuit[i].ownerName]))
+        userInfoHashed.push(hash([userInfosCircuit[i].creditCardNumber, userInfosCircuit[i].creditCardExpireDate, userInfosCircuit[i].cvv, userInfosCircuit[i].bank, userInfosCircuit[i].ownerName]))
         //add leaf to tree
     }
 
@@ -109,14 +110,13 @@ const main = async () => {
     const input = {
         creditCardNumber: userInfosCircuit[userIndex].creditCardNumber,
         creditCardExpireDate: userInfosCircuit[userIndex].creditCardExpireDate,
-        creditCardCreationDate: userInfosCircuit[userIndex].creditCardCreationDate,
         cvv: userInfosCircuit[userIndex].cvv,
         bank: userInfosCircuit[userIndex].bank,
         ownerName: userInfosCircuit[userIndex].ownerName,    
         
         amount:  userInfosCircuit[userIndex].amount,
         userInfoHashed: userInfoHashed[userIndex].toString(),
-        availableTime: Math.floor(Date.now() / 1000) + 60 * 5,
+        availableTime: Math.floor(Date.now() / 1000) + 60,
     }
 
     json = JSON.stringify(input, null, 2);

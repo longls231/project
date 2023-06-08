@@ -25,3 +25,4 @@ snarkjs zkey export soliditycalldata public.json proof.json
 # Test
 Deploy verifier.sol contract
 Use result after running "snarkjs zkey export soliditycalldata public.json proof.json" for inputs contract
+

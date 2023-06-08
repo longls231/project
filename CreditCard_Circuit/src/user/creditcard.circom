@@ -24,7 +24,6 @@ include "../../node_modules/circomlib/circuits/comparators.circom";
 template CreadiCardVerifier() {
     signal input creditCardNumber;
     signal input creditCardExpireDate;
-    signal input creditCardCreationDate;
     signal input cvv;
     signal input bank;
     signal input ownerName;
@@ -34,13 +33,12 @@ template CreadiCardVerifier() {
     signal input availableTime;
     signal output lastFourDigits;
 
-    component leaf = Hash(6);
+    component leaf = Hash(5);
     leaf.in[0] <== creditCardNumber;
     leaf.in[1] <== creditCardExpireDate;
-    leaf.in[2] <== creditCardCreationDate;
-    leaf.in[3] <== cvv;
-    leaf.in[4] <== bank;
-    leaf.in[5] <== ownerName;
+    leaf.in[2] <== cvv;
+    leaf.in[3] <== bank;
+    leaf.in[4] <== ownerName;
 
     userInfoHashed === leaf.out;
 
