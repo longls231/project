@@ -82,14 +82,12 @@ const main = async () => {
      * - creditCardExpire: int
      * - ownerName: decode ascii then convert to BigNum
      * - cvv: convert string to int
-     * - bank: decode ascii then convert to BigNum
      */
     for (let i = 0; i < jsonFilesData.length; i++) {
         encodeUserInfo = {
             creditCardNumber: parseInt(jsonFilesData[i].creditCardNumber, 10),
             creditCardExpireDate: jsonFilesData[i].creditCardExpireDate,
             cvv: parseInt(jsonFilesData[i].cvv, 10),
-            bank: convertStringAsciiToNumber(jsonFilesData[i].bank),
             ownerName: convertStringAsciiToNumber(jsonFilesData[i].ownerName),
             amount: parseInt(jsonFilesData[i].amount, 10)
         }
@@ -99,7 +97,7 @@ const main = async () => {
 
     for (i = 0; i < jsonFilesData.length; i++) {
         //create user leaf
-        userInfoHashed.push(hash([userInfosCircuit[i].creditCardNumber, userInfosCircuit[i].creditCardExpireDate, userInfosCircuit[i].cvv, userInfosCircuit[i].bank, userInfosCircuit[i].ownerName]))
+        userInfoHashed.push(hash([userInfosCircuit[i].creditCardNumber, userInfosCircuit[i].creditCardExpireDate, userInfosCircuit[i].cvv, userInfosCircuit[i].ownerName]))
         //add leaf to tree
     }
 
@@ -111,9 +109,7 @@ const main = async () => {
         creditCardNumber: userInfosCircuit[userIndex].creditCardNumber,
         creditCardExpireDate: userInfosCircuit[userIndex].creditCardExpireDate,
         cvv: userInfosCircuit[userIndex].cvv,
-        bank: userInfosCircuit[userIndex].bank,
-        ownerName: userInfosCircuit[userIndex].ownerName,    
-        
+        ownerName: userInfosCircuit[userIndex].ownerName,            
         amount:  userInfosCircuit[userIndex].amount,
         userInfoHashed: userInfoHashed[userIndex].toString(),
         availableTime: Math.floor(Date.now() / 1000) + 60,

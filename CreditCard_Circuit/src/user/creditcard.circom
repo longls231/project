@@ -25,24 +25,24 @@ template CreadiCardVerifier() {
     signal input creditCardNumber;
     signal input creditCardExpireDate;
     signal input cvv;
-    signal input bank;
     signal input ownerName;
 
     signal input amount;
     signal input userInfoHashed;
     signal input availableTime;
     signal output lastFourDigits;
+    signal output cardBIN;
 
-    component leaf = Hash(5);
+    component leaf = Hash(4);
     leaf.in[0] <== creditCardNumber;
     leaf.in[1] <== creditCardExpireDate;
     leaf.in[2] <== cvv;
-    leaf.in[3] <== bank;
-    leaf.in[4] <== ownerName;
+    leaf.in[3] <== ownerName;
 
     userInfoHashed === leaf.out;
 
     lastFourDigits <-- creditCardNumber % 10000;
+    cardBIN <-- (creditCardNumber - creditCardNumber % 100000000)/100000000;
 }
 
-component main{public[bank, userInfoHashed, amount, availableTime]} = CreadiCardVerifier();
+component main{public[userInfoHashed, amount, availableTime]} = CreadiCardVerifier();
